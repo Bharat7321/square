@@ -16,23 +16,23 @@ app.use("/send",send);
 app.use("/custom",customisedChatBoat);
 app.use(cors())
 
-// app.get('/send/:number/:message', (req, res) => {
-//     const data = req.params;
-//     let numLength=(data.number).length;
-//     let numArray=[];
-//     let count =0;
-//     if(numLength%12==0){
-//         for(count=1;count<=(numLength/12);count++){
-//          numArray.push("+"+data.number.slice(12*(count-1),12*count));
-//         }
-//           console.log("cc",data.number,numArray);
-//         sendBM(client,numArray,data.message);
-//         res.send('Hello Message!' +numArray);
-//     }else {
-//         res.send("Type The Numbers Properly");
-//     }
+app.get('/send/:number/:message', (req, res) => {
+    const data = req.params;
+    let numLength=(data.number).length;
+    let numArray=[];
+    let count =0;
+    if(numLength%12==0){
+        for(count=1;count<=(numLength/12);count++){
+         numArray.push("+"+data.number.slice(12*(count-1),12*count));
+        }
+          console.log("cc",data.number,numArray);
+        sendBM(client,numArray,data.message);
+        res.send('Hello Message!' +numArray);
+    }else {
+        res.send("Type The Numbers Properly");
+    }
     
-//   })
+  })
 
 
   app.get('/getqr', (req, res) => {
@@ -42,21 +42,21 @@ app.use(cors())
     res.send("No data");
   })
   app.get("/",async (req,res)=>{
-    //   const cpromise=await client.getContacts();
-    //   console.log(cpromise,"pp",typeof(cpromise));
-    //   console.log(Object.keys(cpromise),"keys");
-    //   console.log(cpromise[0].number,"first");
-    //   let contacts_list=[];
-    //   let str="";
-    //   cpromise.forEach((element)=>{
-    //       contacts_list.push({name:element?.name,number:element?.number});
-    //       str=str+"Name: "+element?.name+" Number: "+element?.number+"\n";
-    //   })
-    //   console.log(str);
-    //   console.log( await client.getState());
-    //   res.send(await client.getState() + str );
+      const cpromise=await client.getContacts();
+      console.log(cpromise,"pp",typeof(cpromise));
+      console.log(Object.keys(cpromise),"keys");
+      console.log(cpromise[0].number,"first");
+      let contacts_list=[];
+      let str="";
+      cpromise.forEach((element)=>{
+          contacts_list.push({name:element?.name,number:element?.number});
+          str=str+"Name: "+element?.name+" Number: "+element?.number+"\n";
+      })
+      console.log(str);
+      console.log( await client.getState());
+      res.send(await client.getState() + str );
 
-   // res.send(" Its working");
+   res.send(" Its working");
     res.sendFile(path.join(__dirname,'/index.html'));
 
 
